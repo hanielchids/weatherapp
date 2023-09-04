@@ -11,7 +11,7 @@
 
 ### Architecture
 
-The Weather App is a React Native application designed to display weather information based on the user's location. It follows a simple architecture with key components:
+It follows a simple architecture with key components:
 
 1. **HomeScreen**: The main component responsible for displaying weather information and forecasts. It handles data fetching, location access, and rendering the UI.
 
@@ -23,12 +23,12 @@ The Weather App is a React Native application designed to display weather inform
 
 ### General Considerations
 
-- The application uses the OpenWeatherMap API to fetch weather data. The API key is stored as an environment variable for security.
+- The API key is stored as an environment variable for security.
 - It checks for internet connectivity using the NetInfo library and retrieves data from local storage when offline.
 - Location permission is requested using the Expo Location library to get the user's coordinates for weather data retrieval.
 - Weather conditions are categorized, and appropriate background images and icons are displayed based on the weather condition.
 - Temperature units are displayed in Celsius (°C).
-- The application handles errors gracefully and provides feedback to the user.
+- The application handles errors and provides feedback to the user.
 
 ## Third-Party Dependencies
 
@@ -55,9 +55,8 @@ To build and run the Weather App project, follow these steps:
    ```
    yarn install
    ```
-4. Obtain an API key from [OpenWeatherMap](https://openweathermap.org/api) and store it as an environment variable with the name `REACT_WEATHER_KEY`.
-5. Connect a mobile device or start an emulator/simulator.
-6. Run the app on the device by executing:
+4. Use your API key on `REACT_WEATHER_KEY` in `.env.example` ad rename it to `.env`.
+5. Run the app on the device by executing:
    ```
    npm start
    ```
@@ -65,7 +64,7 @@ To build and run the Weather App project, follow these steps:
    ```
    yarn start
    ```
-7. Follow the instructions in the terminal to open the app on your device or simulator.
+6. Follow the instructions in the terminal to open the app on your device or simulator.
 
 ## Additional Notes
 
