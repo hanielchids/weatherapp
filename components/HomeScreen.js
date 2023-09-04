@@ -14,7 +14,7 @@ import * as Location from "expo-location";
 import styles from "../styles/styles";
 
 const api = {
-  key: "",
+  key: process.env.REACT_WEATHER_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
@@ -70,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
         const { latitude, longitude } = location.coords;
 
         const weatherResponse = await fetch(
-          `${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=adee2681c1b31134e040b6e42bd659d1`
+          `${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=${api.key}`
         );
         const weatherData = await weatherResponse.json();
 
@@ -101,7 +101,7 @@ const HomeScreen = ({ navigation }) => {
           setLoading(false);
 
           const forecastResponse = await fetch(
-            `${api.base}forecast?lat=${latitude}&lon=${longitude}&units=metric&APPID=adee2681c1b31134e040b6e42bd659d1`
+            `${api.base}forecast?lat=${latitude}&lon=${longitude}&units=metric&APPID=${api.key}`
           );
           const forecastData = await forecastResponse.json();
 
