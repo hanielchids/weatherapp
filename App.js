@@ -15,12 +15,10 @@ const App = () => {
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Forecast" component={ForecastScreen} />
+        <Stack.Screen name="ForecastScreen" component={ForecastScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
-
-// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}  ccc1a508f242637daf42bc45ac36ca2a
