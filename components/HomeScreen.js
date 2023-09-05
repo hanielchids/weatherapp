@@ -12,10 +12,11 @@ import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Location from "expo-location";
 import styles from "../styles/styles";
+import { weatherConditionMap } from "../utils/weatherUtils";
 
 const api = {
   key: process.env.REACT_WEATHER_KEY,
-  base: "https://api.openweathermap.org/data/2.5/",
+  base: process.env.REACT_BASE_URL,
 };
 
 const HomeScreen = ({ navigation }) => {
@@ -72,19 +73,20 @@ const HomeScreen = ({ navigation }) => {
         const weatherResponse = await fetch(
           `${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=${api.key}`
         );
-        const weatherData = await weatherResponse.json();
 
-        if (weatherData.name !== null) {
+        const { main, weather, name, sys } = await weatherResponse.json();
+
+        if (name !== null) {
           setWeatherDetails({
-            temp: Math.round(weatherData.main.temp),
-            wea: weatherData.weather[0].main,
-            city: weather.name,
-            country: weatherData.sys.country,
+            temp: Math.round(main.temp),
+            wea: weather[0].main,
+            city: name,
+            country: sys.country,
           });
 
           setTemperature({
-            min: Math.round(weatherData.main.temp_min),
-            max: Math.round(weatherData.main.temp_max),
+            min: Math.round(main.temp_min),
+            max: Math.round(main.temp_max),
           });
 
           const weatherDataToStore = {
@@ -103,18 +105,15 @@ const HomeScreen = ({ navigation }) => {
           const forecastResponse = await fetch(
             `${api.base}forecast?lat=${latitude}&lon=${longitude}&units=metric&APPID=${api.key}`
           );
-          const forecastData = await forecastResponse.json();
+
+          const { cnt, list } = await forecastResponse.json();
 
           let forecast_ = [];
-          for (
-            let index = 7, k = 1;
-            index < forecastData.cnt;
-            index += 8, k++
-          ) {
+          for (let index = 7, k = 1; index < cnt; index += 8, k++) {
             let data = {
               key: k,
-              temp: Math.round(forecastData.list[index].main.temp),
-              wea: forecastData.list[index].weather[0].main,
+              temp: Math.round(list[index].main.temp),
+              wea: list[index].weather[0].main,
             };
             forecast_.push(data);
           }
@@ -131,59 +130,8 @@ const HomeScreen = ({ navigation }) => {
     fetchData();
   }, []);
 
-  let source, bgsource, bgcolor;
-
-  switch (weatherDetails.wea) {
-    case "Rain":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    case "Clear":
-      bgsource = require("../assets/backgrounds/sea_sunnypng.png");
-      source = require("../assets/icons/clear2.png");
-      bgcolor = "#4a90e2";
-      break;
-    case "Sunny":
-      bgsource = require("../assets/backgrounds/sea_cloudy.png");
-      source = require("../assets/icons/partlysunny2.png");
-      bgcolor = "#47AB2F";
-      break;
-    case "Clouds":
-      bgsource = require("../assets/backgrounds/sea_cloudy.png");
-      source = require("../assets/icons/partlysunny2.png");
-      bgcolor = "#54717A";
-      break;
-    case "Thunderstorm":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    case "Snow":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    case "Drizzle":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    case "Haze":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    case "Mist":
-      bgsource = require("../assets/backgrounds/sea_rainy.png");
-      source = require("../assets/icons/rain2.png");
-      bgcolor = "#57575D";
-      break;
-    default:
-      bgsource = require("../assets/backgrounds/sea_sunnypng.png");
-      source = require("../assets/icons/clear2.png");
-      break;
-  }
+  const { bgsource, source, bgcolor } =
+    weatherConditionMap[weatherDetails.wea] || weatherConditionMap.Clear;
 
   let offset = 1;
   const Item = ({ title }) => (
@@ -280,6 +228,5 @@ const HomeScreen = ({ navigation }) => {
     </>
   );
 };
-// };
 
 export default HomeScreen;
