@@ -47,10 +47,6 @@ To build and run the Weather App project, follow these steps:
    ```
    npm install
    ```
-   or
-   ```
-   yarn install
-   ```
 3. Use your API key on `REACT_WEATHER_KEY` in `.env.example` ad rename it to `.env`. The url for `REACT_BASE_URL` is already there.
 4. Run the app on the device by executing:
    ```
