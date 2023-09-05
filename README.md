@@ -1,13 +1,10 @@
 # Weather App ReadMe
 
-## Conventions, Architecture, and General Considerations
-
 ### Conventions
 
-- This React Native application follows common coding conventions for React and JavaScript.
+- I used React Native, JavaScript and Expo.
 - Variable and function names use camelCase.
 - Component names are in PascalCase.
-- Code comments are used for explanation and documentation where necessary.
 
 ### Architecture
 
@@ -45,9 +42,8 @@ The Weather App relies on the following third-party libraries and dependencies:
 
 To build and run the Weather App project, follow these steps:
 
-1. Clone the project repository from the source.
-2. Navigate to the project directory in your terminal.
-3. Install the project dependencies by running:
+1. Clone the project repository.
+2. Install the project dependencies by running:
    ```
    npm install
    ```
@@ -55,22 +51,17 @@ To build and run the Weather App project, follow these steps:
    ```
    yarn install
    ```
-4. Use your API key on `REACT_WEATHER_KEY` in `.env.example` ad rename it to `.env`.
-5. Run the app on the device by executing:
+3. Use your API key on `REACT_WEATHER_KEY` in `.env.example` ad rename it to `.env`. The url for `REACT_BASE_URL` is already there.
+4. Run the app on the device by executing:
    ```
    npm start
    ```
-   or
-   ```
-   yarn start
-   ```
-6. Follow the instructions in the terminal to open the app on your device or simulator.
+5. Follow the instructions in the terminal to open the app on your device or simulator.
 
 ## Additional Notes
 
 - The application uses React hooks like `useState` and `useEffect` for state management and side effects.
 - It includes error handling using `try...catch` blocks to log errors.
-- Weather condition icons and background images are chosen based on the weather data received.
 - The application includes a responsive design that adapts to different screen sizes.
 - Forecast data is displayed for the next five days.
 - Location access is requested explicitly to ensure proper functionality.
